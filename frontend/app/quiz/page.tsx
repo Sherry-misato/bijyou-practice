@@ -12,7 +12,7 @@ import {
   RadioGroup,
 } from "@chakra-ui/react";
 import { fetchQuizQuestions, answerQuiz, QuizQuestion } from "../lib/api";
-import Ornament from "../components/Ornament";
+import PageHeader from "../components/PageHeader";
 
 export default function QuizPage() {
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
@@ -69,15 +69,12 @@ export default function QuizPage() {
 
   return (
     <Container maxW="600px" px={{ base: "4", md: "6" }} py="8">
-      <Stack gap="2" mb="6">
-        <Heading className="font-display" fontSize={{ base: "3xl", md: "4xl" }} color="pink.700">
-          クイズ
-        </Heading>
-        <Ornament />
-        <Text color="gray.600" fontSize="sm">
-          パの名前や意味をクイズ形式で復習しましょう。
-        </Text>
-      </Stack>
+      <PageHeader
+        emoji="🎓"
+        frenchSubtitle="Petit quiz de ballet"
+        title="クイズ"
+        description="パの名前や意味をクイズ形式で復習しましょう。"
+      />
 
       {loading && (
         <Stack align="center" py="10">
@@ -102,7 +99,7 @@ export default function QuizPage() {
       )}
 
       {!loading && !error && questions.length > 0 && !finished && currentQuestion && (
-        <Box bg="white" borderWidth="1px" borderColor="pink.100" borderRadius="xl" p="6" boxShadow="sm">
+        <Box className="bijyou-card" bg="white" borderWidth="1px" borderColor="pink.100" borderRadius="xl" p="6" boxShadow="sm">
           <Text fontSize="xs" color="gray.500" mb="2">
             {currentIndex + 1} / {questions.length} 問
           </Text>
@@ -148,12 +145,12 @@ export default function QuizPage() {
 
           <Stack direction="row" justify="flex-end" mt="5">
             {feedback === null ? (
-              <Button colorPalette="pink" onClick={handleSubmitAnswer} loading={submitting} disabled={selected === null}>
+              <Button className="bijyou-btn-cute" colorPalette="pink" onClick={handleSubmitAnswer} loading={submitting} disabled={selected === null}>
                 回答する
               </Button>
             ) : (
-              <Button colorPalette="pink" onClick={handleNext}>
-                {currentIndex + 1 < questions.length ? "次の問題へ" : "結果を見る"}
+              <Button className="bijyou-btn-cute" colorPalette="pink" onClick={handleNext}>
+                {currentIndex + 1 < questions.length ? "次の問題へ" : "結果を見る ✨"}
               </Button>
             )}
           </Stack>
@@ -161,14 +158,14 @@ export default function QuizPage() {
       )}
 
       {!loading && !error && finished && (
-        <Box bg="white" borderWidth="1px" borderColor="pink.100" borderRadius="xl" p="8" textAlign="center" boxShadow="sm">
+        <Box className="bijyou-card" bg="white" borderWidth="1px" borderColor="pink.100" borderRadius="xl" p="8" textAlign="center" boxShadow="sm">
           <Text fontSize="sm" color="gray.500" mb="2">
-            お疲れさまでした
+            お疲れさまでした 🎉
           </Text>
           <Heading className="font-display" fontSize="3xl" color="pink.700" mb="4">
             {score} / {questions.length} 問正解
           </Heading>
-          <Button colorPalette="pink" onClick={handleRestart}>
+          <Button className="bijyou-btn-cute" colorPalette="pink" onClick={handleRestart}>
             もう一度挑戦する
           </Button>
         </Box>

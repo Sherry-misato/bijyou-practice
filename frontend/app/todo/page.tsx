@@ -14,7 +14,7 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import { fetchTodos, createTodo, updateTodo, deleteTodo, Todo } from "../lib/api";
-import Ornament from "../components/Ornament";
+import PageHeader from "../components/PageHeader";
 
 export default function TodoPage() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -81,17 +81,14 @@ export default function TodoPage() {
 
   return (
     <Container maxW="640px" px={{ base: "4", md: "6" }} py="8">
-      <Stack gap="2" mb="6">
-        <Heading className="font-display" fontSize={{ base: "3xl", md: "4xl" }} color="pink.700">
-          TODO
-        </Heading>
-        <Ornament />
-        <Text color="gray.600" fontSize="sm">
-          次回の練習で意識したい課題を管理しましょう。
-        </Text>
-      </Stack>
+      <PageHeader
+        emoji="🎀"
+        frenchSubtitle="Mes objectifs"
+        title="TODO"
+        description="次回の練習で意識したい課題を管理しましょう。"
+      />
 
-      <Box bg="white" borderWidth="1px" borderColor="pink.100" borderRadius="xl" p="5" boxShadow="sm" mb="8">
+      <Box bg="white" borderWidth="1px" borderColor="pink.100" borderRadius="xl" p="5" boxShadow="sm" mb="8" className="bijyou-card">
         <HStack>
           <Input
             placeholder="例：ピルエットで軸をまっすぐにする"
@@ -100,7 +97,7 @@ export default function TodoPage() {
             onKeyDown={(e) => e.key === "Enter" && handleAdd()}
             borderColor="pink.200"
           />
-          <Button colorPalette="pink" onClick={handleAdd} loading={submitting} disabled={!content.trim()}>
+          <Button className="bijyou-btn-cute" colorPalette="pink" onClick={handleAdd} loading={submitting} disabled={!content.trim()}>
             追加
           </Button>
         </HStack>
@@ -129,6 +126,7 @@ export default function TodoPage() {
           {todos.map((todo) => (
             <HStack
               key={todo.id}
+              className="bijyou-card"
               bg="white"
               borderWidth="1px"
               borderColor="pink.100"

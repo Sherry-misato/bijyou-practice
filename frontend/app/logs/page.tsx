@@ -13,7 +13,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { fetchLogs, createLog, deleteLog, LessonLog } from "../lib/api";
-import Ornament from "../components/Ornament";
+import PageHeader from "../components/PageHeader";
 
 function todayStr() {
   return new Date().toISOString().slice(0, 10);
@@ -75,17 +75,14 @@ export default function LogsPage() {
 
   return (
     <Container maxW="720px" px={{ base: "4", md: "6" }} py="8">
-      <Stack gap="2" mb="6">
-        <Heading className="font-display" fontSize={{ base: "3xl", md: "4xl" }} color="pink.700">
-          レッスン日記
-        </Heading>
-        <Ornament />
-        <Text color="gray.600" fontSize="sm">
-          今日練習した内容、できたこと、難しかったこと、次回意識することを記録しましょう。
-        </Text>
-      </Stack>
+      <PageHeader
+        emoji="📔"
+        frenchSubtitle="Mon journal de danse"
+        title="レッスン日記"
+        description="今日練習した内容、できたこと、難しかったこと、次回意識することを記録しましょう。"
+      />
 
-      <Box bg="white" borderWidth="1px" borderColor="pink.100" borderRadius="xl" p="6" boxShadow="sm" mb="8">
+      <Box bg="white" borderWidth="1px" borderColor="pink.100" borderRadius="xl" p="6" boxShadow="sm" mb="8" className="bijyou-card">
         <Stack gap="3">
           <Box>
             <Text fontSize="xs" fontWeight="700" color="pink.700" mb="1">
@@ -112,13 +109,14 @@ export default function LogsPage() {
             />
           </Box>
           <Button
+            className="bijyou-btn-cute"
             colorPalette="pink"
             alignSelf="flex-end"
             onClick={handleSubmit}
             loading={submitting}
             disabled={!content.trim()}
           >
-            記録する
+            記録する ✨
           </Button>
         </Stack>
       </Box>
@@ -144,7 +142,7 @@ export default function LogsPage() {
       ) : (
         <Stack gap="4">
           {logs.map((log) => (
-            <Box key={log.id} bg="white" borderWidth="1px" borderColor="pink.100" borderRadius="xl" p="5" boxShadow="sm">
+            <Box key={log.id} className="bijyou-card" bg="white" borderWidth="1px" borderColor="pink.100" borderRadius="xl" p="5" boxShadow="sm">
               <Stack direction="row" justify="space-between" align="flex-start">
                 <Text fontSize="xs" fontWeight="700" color="pink.600">
                   {log.date}

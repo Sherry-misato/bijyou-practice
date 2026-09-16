@@ -54,10 +54,23 @@ a {
 /* カードのふわっと浮き上がるホバー演出（.bijyou-card を付けたBoxに適用） */
 .bijyou-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 22px !important;
 }
 .bijyou-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 24px -8px rgba(168, 79, 114, 0.28);
+}
+
+/* メインボタンの繊細なグラデーション（.bijyou-btn-cute を付けたButtonに適用） */
+.bijyou-btn-cute {
+  background: linear-gradient(135deg, #eda9bf 0%, #d97ca0 100%) !important;
+  border: none !important;
+  color: white !important;
+  transition: filter 0.15s ease, transform 0.1s ease !important;
+}
+.bijyou-btn-cute:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
 }
 
 /* ボタンの繊細なグラデーションホバー（Chakraのsolid pinkボタンに重ねて適用） */

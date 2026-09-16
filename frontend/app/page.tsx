@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { fetchPasList, uploadPasVideo, Pas } from "./lib/api";
 import { useViewMode } from "./contexts/ViewModeContext";
-import Ornament from "./components/Ornament";
+import PageHeader from "./components/PageHeader";
 
 export default function HomePage() {
   const [pasList, setPasList] = useState<Pas[]>([]);
@@ -85,24 +85,12 @@ export default function HomePage() {
 
   return (
     <Container maxW="960px" px={{ base: "4", md: "6" }} py="8">
-      <Stack gap="2" mb="6">
-        <Text
-          className="font-display"
-          fontSize="sm"
-          fontStyle="italic"
-          color="pink.400"
-          letterSpacing="0.08em"
-        >
-          Le vocabulaire du ballet
-        </Text>
-        <Heading className="font-display" fontSize={{ base: "3xl", md: "4xl" }} color="pink.700">
-          パ辞書
-        </Heading>
-        <Box><Ornament /></Box>
-        <Text color="gray.600" fontSize="sm">
-          バレエのパ（技）の意味・動き方・注意点をいつでも確認できます。気になるパを選んで、お手本動画もチェックしましょう。
-        </Text>
-      </Stack>
+      <PageHeader
+        emoji="🩰"
+        frenchSubtitle="Le vocabulaire du ballet"
+        title="パ辞書"
+        description="バレエのパ（技）の意味・動き方・注意点をいつでも確認できます。気になるパを選んで、お手本動画もチェックしましょう。"
+      />
 
       {/* 検索 */}
       <Box mb="6">

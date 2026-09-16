@@ -94,7 +94,7 @@ export default function ComparePage() {
             mb="3"
             size="sm"
           />
-          <Box borderRadius="lg" overflow="hidden" bg="gray.100" aspectRatio={9 / 16} maxH="480px">
+          <Box borderRadius="lg" overflow="hidden" bg="gray.100" aspectRatio={3 / 4} maxH="480px">
             {modelUrl ? (
               <video src={modelUrl} controls playsInline style={{ width: "100%", height: "100%", objectFit: "contain" }} />
             ) : (
@@ -119,7 +119,7 @@ export default function ComparePage() {
             mb="3"
             size="sm"
           />
-          <Box borderRadius="lg" overflow="hidden" bg="gray.100" aspectRatio={9 / 16} maxH="480px">
+          <Box borderRadius="lg" overflow="hidden" bg="gray.100" aspectRatio={3 / 4} maxH="480px">
             {myUrl ? (
               <video src={myUrl} controls playsInline style={{ width: "100%", height: "100%", objectFit: "contain" }} />
             ) : (
@@ -152,7 +152,7 @@ export default function ComparePage() {
               borderRadius="lg"
               overflow="hidden"
               bg="black"
-              aspectRatio={9 / 16}
+              aspectRatio={3 / 4}
               maxH="560px"
               mx="auto"
               maxW="320px"

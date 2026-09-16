@@ -18,6 +18,7 @@ import {
 import { fetchPasList, uploadPasVideo, Pas } from "./lib/api";
 import { useViewMode } from "./contexts/ViewModeContext";
 import PageHeader from "./components/PageHeader";
+import PasVideoCompare from "./components/PasVideoCompare";
 
 export default function HomePage() {
   const [pasList, setPasList] = useState<Pas[]>([]);
@@ -193,12 +194,17 @@ export default function HomePage() {
                 >
                   {pas.japanese}
                 </Badge>
+                {pas.french_meaning && (
+                  <Text fontSize="xs" color="gray.500" fontStyle="italic" mt="1">
+                    {pas.french_meaning}
+                  </Text>
+                )}
               </Stack>
 
               <Stack gap="2" fontSize="sm" color="gray.700">
                 <Text>
                   <Text as="span" fontWeight="700" color="pink.700">
-                    意味：
+                    バレエ用語としての意味：
                   </Text>
                   {pas.meaning}
                 </Text>
@@ -235,34 +241,12 @@ export default function HomePage() {
                 )}
               </Box>
 
-              <Box mt="4">
-                <HStack mb="2" gap="2">
-                  <Box w="16px" h="1px" bg="#C9A66B" />
-                  <Text fontSize="xs" fontWeight="700" color="pink.700" letterSpacing="0.05em">
-                    お手本動画
-                  </Text>
-                </HStack>
+              <PasVideoCompare modelVideoUrl={pas.sample_video_url} pasName={pas.french} />
 
-                {pas.sample_video_url && (
-                  <AspectRatio ratio={16 / 9} borderRadius="lg" overflow="hidden" mb="2">
-                    {isEmbedUrl(pas.sample_video_url) ? (
-                      <iframe
-                        src={pas.sample_video_url}
-                        title={`${pas.french} お手本動画`}
-                        allowFullScreen
-                      />
-                    ) : (
-                      <video src={pas.sample_video_url} controls />
-                    )}
-                  </AspectRatio>
-                )}
-
-                {!pas.sample_video_url && (
-                  <Text fontSize="xs" color="gray.400" mb="2">
-                    まだ動画が登録されていません。
-                  </Text>
-                )}
-
+              <Box mt="3">
+                <Text fontSize="10px" color="gray.400" mb="1">
+                  お手本動画を差し替える場合はこちら
+                </Text>
                 <Input
                   type="file"
                   accept="video/*"

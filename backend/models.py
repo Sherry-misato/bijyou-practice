@@ -12,7 +12,8 @@ class Pas(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     french: str                     # フランス語名（例: Plié）
     japanese: str                   # 日本語名（例: プリエ）
-    meaning: str                    # 意味
+    french_meaning: str = ""        # フランス語の単語自体の意味（例: 「曲げられた」）
+    meaning: str                    # バレエ用語としての意味
     movement: str                   # 動き方
     caution: str                    # 注意点
     used_scene: str                 # 使用場面

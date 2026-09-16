@@ -6,6 +6,7 @@ export type Pas = {
   id: number;
   french: string;
   japanese: string;
+  french_meaning: string;
   meaning: string;
   movement: string;
   caution: string;

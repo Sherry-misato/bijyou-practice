@@ -7,6 +7,7 @@
   --bijyou-pink-300: #eda9bf;
   --bijyou-pink-500: #d97ca0;
   --bijyou-pink-700: #a84f72;
+  --bijyou-gold: #c9a66b;
   --bijyou-ink: #3c2e33;
   --bijyou-ink-soft: #7a6670;
 }
@@ -19,10 +20,17 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background: var(--bijyou-bg);
   color: var(--bijyou-ink);
   font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
+
+  /* うっすらとしたチュール（レース）風の背景模様 */
+  background-color: var(--bijyou-bg);
+  background-image: radial-gradient(circle at 1px 1px, rgba(217, 124, 160, 0.10) 1px, transparent 0),
+    radial-gradient(circle at 900px 300px, rgba(201, 166, 107, 0.08) 0, transparent 45%),
+    radial-gradient(circle at 100px 800px, rgba(217, 124, 160, 0.07) 0, transparent 40%);
+  background-size: 22px 22px, 100% 100%, 100% 100%;
+  background-attachment: fixed;
 }
 
 h1,
@@ -41,4 +49,42 @@ a {
 ::selection {
   background: var(--bijyou-pink-300);
   color: white;
+}
+
+/* カードのふわっと浮き上がるホバー演出（.bijyou-card を付けたBoxに適用） */
+.bijyou-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.bijyou-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -8px rgba(168, 79, 114, 0.28);
+}
+
+/* ボタンの繊細なグラデーションホバー（Chakraのsolid pinkボタンに重ねて適用） */
+.bijyou-fade-in {
+  animation: bijyouFadeIn 0.35s ease both;
+}
+@keyframes bijyouFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* スクロールバーも上品に */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bijyou-bg-soft);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bijyou-pink-300);
+  border-radius: 999px;
+  border: 2px solid var(--bijyou-bg-soft);
 }

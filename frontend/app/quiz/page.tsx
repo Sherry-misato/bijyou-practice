@@ -12,6 +12,7 @@ import {
   RadioGroup,
 } from "@chakra-ui/react";
 import { fetchQuizQuestions, answerQuiz, QuizQuestion } from "../lib/api";
+import Ornament from "../components/Ornament";
 
 export default function QuizPage() {
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
@@ -72,6 +73,7 @@ export default function QuizPage() {
         <Heading className="font-display" fontSize={{ base: "3xl", md: "4xl" }} color="pink.700">
           クイズ
         </Heading>
+        <Ornament />
         <Text color="gray.600" fontSize="sm">
           パの名前や意味をクイズ形式で復習しましょう。
         </Text>

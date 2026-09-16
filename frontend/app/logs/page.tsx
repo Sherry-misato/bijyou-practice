@@ -13,6 +13,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { fetchLogs, createLog, deleteLog, LessonLog } from "../lib/api";
+import Ornament from "../components/Ornament";
 
 function todayStr() {
   return new Date().toISOString().slice(0, 10);
@@ -78,6 +79,7 @@ export default function LogsPage() {
         <Heading className="font-display" fontSize={{ base: "3xl", md: "4xl" }} color="pink.700">
           レッスン日記
         </Heading>
+        <Ornament />
         <Text color="gray.600" fontSize="sm">
           今日練習した内容、できたこと、難しかったこと、次回意識することを記録しましょう。
         </Text>

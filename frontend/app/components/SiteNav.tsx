@@ -21,6 +21,7 @@ export default function SiteNav() {
       bg="white"
       borderBottomWidth="1px"
       borderColor="pink.100"
+      boxShadow="0 2px 10px -6px rgba(168, 79, 114, 0.25)"
       position="sticky"
       top="0"
       zIndex="10"
@@ -36,15 +37,20 @@ export default function SiteNav() {
         gap="3"
       >
         <NextLink href="/">
-          <Text
-            className="font-display"
-            fontSize="2xl"
-            fontStyle="italic"
-            fontWeight="600"
-            color="pink.600"
-          >
-            bijyou
-          </Text>
+          <HStack gap="1.5">
+            <Text fontSize="lg" lineHeight="1">
+              🩰
+            </Text>
+            <Text
+              className="font-display"
+              fontSize="2xl"
+              fontStyle="italic"
+              fontWeight="600"
+              color="pink.600"
+            >
+              bijyou
+            </Text>
+          </HStack>
         </NextLink>
 
         <HStack gap={{ base: "3", md: "6" }} wrap="wrap">

@@ -14,6 +14,7 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import { fetchTodos, createTodo, updateTodo, deleteTodo, Todo } from "../lib/api";
+import Ornament from "../components/Ornament";
 
 export default function TodoPage() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -84,6 +85,7 @@ export default function TodoPage() {
         <Heading className="font-display" fontSize={{ base: "3xl", md: "4xl" }} color="pink.700">
           TODO
         </Heading>
+        <Ornament />
         <Text color="gray.600" fontSize="sm">
           次回の練習で意識したい課題を管理しましょう。
         </Text>

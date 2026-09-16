@@ -13,6 +13,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { useViewMode } from "../contexts/ViewModeContext";
+import Ornament from "../components/Ornament";
 
 export default function ComparePage() {
   const { mode } = useViewMode();
@@ -76,6 +77,7 @@ export default function ComparePage() {
         <Heading className="font-display" fontSize={{ base: "3xl", md: "4xl" }} color="pink.700">
           動画比較
         </Heading>
+        <Ornament />
         <Text color="gray.600" fontSize="sm">
           お手本動画と自分の練習動画をアップロードして、左右で見比べたり、重ね合わせてフォームの違いを確認できます。
         </Text>

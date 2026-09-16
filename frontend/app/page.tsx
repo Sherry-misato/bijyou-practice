@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { fetchPasList, uploadPasVideo, Pas } from "./lib/api";
 import { useViewMode } from "./contexts/ViewModeContext";
+import Ornament from "./components/Ornament";
 
 export default function HomePage() {
   const [pasList, setPasList] = useState<Pas[]>([]);
@@ -97,7 +98,7 @@ export default function HomePage() {
         <Heading className="font-display" fontSize={{ base: "3xl", md: "4xl" }} color="pink.700">
           パ辞書
         </Heading>
-        <Box w="56px" h="2px" bg="#C9A66B" />
+        <Box><Ornament /></Box>
         <Text color="gray.600" fontSize="sm">
           バレエのパ（技）の意味・動き方・注意点をいつでも確認できます。気になるパを選んで、お手本動画もチェックしましょう。
         </Text>
@@ -172,6 +173,7 @@ export default function HomePage() {
           {filteredList.map((pas) => (
             <Box
               key={pas.id}
+              className="bijyou-card bijyou-fade-in"
               bg="white"
               borderWidth="1px"
               borderColor="pink.100"

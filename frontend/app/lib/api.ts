@@ -1,5 +1,7 @@
 // FastAPIのベースURL
-export const API_BASE_URL = "http://localhost:8000";
+// ローカル開発では localhost:8000、公開後はVercelの環境変数 NEXT_PUBLIC_API_URL に
+// Renderのバックエンドの実際のURL（例: https://bijyou-api.onrender.com）を設定する
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 // 型定義（DBのモデルに対応）
 export type Pas = {

@@ -4,9 +4,14 @@
 main.py の起動時に呼ばれる。
 """
 
+import os
+
 from sqlmodel import Session, select
 
 from models import Pas, QuizQuestion
+
+# main.pyと同じベースURL（ローカル開発ではlocalhost、公開後はRenderのURL）
+PUBLIC_BASE_URL = os.getenv("PUBLIC_BASE_URL", "http://localhost:8000")
 
 
 def seed_pas(session: Session):
@@ -23,7 +28,7 @@ def seed_pas(session: Session):
             movement="膝とつま先を同じ方向に向けながら、ゆっくり膝を曲げて伸ばす",
             caution="かかとが浮かないように、膝とつま先の向きを揃える",
             used_scene="ジャンプの着地・踏み切りの緩衝動作として、『白鳥の湖』群舞の入りなどほぼ全ての作品で使われる",
-            sample_video_url="http://localhost:8000/static/videos/Plie_Ex.mp4",
+            sample_video_url=f"{PUBLIC_BASE_URL}/static/videos/Plie_Ex.mp4",
         ),
         Pas(
             french="Tendu",
@@ -33,7 +38,7 @@ def seed_pas(session: Session):
             movement="軸足に体重を残したまま、動足のつま先を床につけて前後横に伸ばす",
             caution="足の甲を最後まで伸ばしきる。腰が動かないようにする",
             used_scene="『くるみ割り人形』金平糖の精のヴァリエーションなど、繊細な足さばきを見せる場面で多用される",
-            sample_video_url="http://localhost:8000/static/videos/tanjyu_Ex.mp4",
+            sample_video_url=f"{PUBLIC_BASE_URL}/static/videos/tanjyu_Ex.mp4",
         ),
         Pas(
             french="Dégagé",
@@ -43,7 +48,7 @@ def seed_pas(session: Session):
             movement="タンデュの位置から、足の甲を保ったまま床から数センチ離して鋭く伸ばす",
             caution="足が床から離れすぎないように。軸足の骨盤が動かないように意識する",
             used_scene="ジャンプの踏み切り前の準備動作として、多くのアレグロ（跳躍系のステップ）の基礎になる",
-            sample_video_url="http://localhost:8000/static/videos/jyutte_Ex.mp4",
+            sample_video_url=f"{PUBLIC_BASE_URL}/static/videos/jyutte_Ex.mp4",
         ),
         Pas(
             french="Rond de jambe à terre",
@@ -53,7 +58,7 @@ def seed_pas(session: Session):
             movement="つま先で床をなぞりながら、前→横→後ろ（またはその逆）と半円を描くように動かす",
             caution="骨盤を動かさず、股関節から足を回すことを意識する。スピードを一定に保つ",
             used_scene="バーレッスンの定番種目で、股関節の可動域や軸の安定性を養う場面で使われる",
-            sample_video_url="http://localhost:8000/static/videos/ronde_Ex.mp4",
+            sample_video_url=f"{PUBLIC_BASE_URL}/static/videos/ronde_Ex.mp4",
         ),
     ]
     session.add_all(pas_list)

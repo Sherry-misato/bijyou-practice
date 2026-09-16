@@ -26,6 +26,10 @@ from seed import seed_all
 VIDEO_DIR = os.path.join("static", "videos")
 os.makedirs(VIDEO_DIR, exist_ok=True)  # StaticFilesのmount時に存在している必要があるため、ここで作成
 
+# アップロードした動画のURLを組み立てる際に使うベースURL
+# ローカル開発では http://localhost:8000、公開後はRenderのURL（例: https://bijyou-api.onrender.com）
+PUBLIC_BASE_URL = os.getenv("PUBLIC_BASE_URL", "http://localhost:8000")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -39,10 +43,14 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="bijyou API", lifespan=lifespan)
 
-# Next.js(localhost:3000)からのアクセスを許可
+# 許可するフロントエンドのURL（カンマ区切りで複数指定可）
+# 例: CORS_ORIGINS=http://localhost:3000,https://bijyou.vercel.app
+_cors_origins_env = os.getenv("CORS_ORIGINS", "http://localhost:3000")
+CORS_ORIGINS = [origin.strip() for origin in _cors_origins_env.split(",") if origin.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -94,7 +102,7 @@ async def upload_pas_video(
     with open(filepath, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    pas.sample_video_url = f"http://localhost:8000/static/videos/{filename}"
+    pas.sample_video_url = f"{PUBLIC_BASE_URL}/static/videos/{filename}"
     session.add(pas)
     session.commit()
     session.refresh(pas)

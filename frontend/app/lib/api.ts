@@ -58,6 +58,22 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 // ---- パ辞書 ----
 export const fetchPasList = () => request<Pas[]>("/pas");
 
+// 動画アップロードはJSONではなくFormDataで送るため、共通のrequest()は使わない
+export async function uploadPasVideo(pasId: number, file: File): Promise<Pas> {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const res = await fetch(`${API_BASE_URL}/pas/${pasId}/video`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!res.ok) {
+    throw new Error(`動画のアップロードに失敗しました（${res.status}）`);
+  }
+  return res.json();
+}
+
 // ---- レッスン日記 ----
 export const fetchLogs = () => request<LessonLog[]>("/logs");
 export const createLog = (data: { date: string; content: string }) =>

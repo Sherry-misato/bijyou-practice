@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { label: "レッスン日記", href: "/logs" },
   { label: "TODO", href: "/todo" },
   { label: "クイズ", href: "/quiz" },
+  { label: "動画比較", href: "/compare" },
 ];
 
 export default function SiteNav() {

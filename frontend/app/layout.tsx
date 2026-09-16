@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "./providers";
 import SiteNav from "./components/SiteNav";
+import ViewModeToggleBar from "./components/ViewModeToggleBar";
+import ViewModeFrame from "./components/ViewModeFrame";
 
 export const metadata: Metadata = {
   title: "bijyou（ビジュー）| バレエ上達サポート",
@@ -18,8 +20,11 @@ export default function RootLayout({
     <html lang="ja">
       <body>
         <Providers>
-          <SiteNav />
-          <main>{children}</main>
+          <ViewModeToggleBar />
+          <ViewModeFrame>
+            <SiteNav />
+            <main>{children}</main>
+          </ViewModeFrame>
         </Providers>
       </body>
     </html>

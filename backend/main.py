@@ -1,8 +1,12 @@
+import os
+import shutil
+import uuid
 from contextlib import asynccontextmanager
 from typing import List
 
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from sqlmodel import Session, select
 
 from database import create_db_and_tables, get_session, engine
@@ -19,11 +23,15 @@ from models import (
 )
 from seed import seed_all
 
+VIDEO_DIR = os.path.join("static", "videos")
+os.makedirs(VIDEO_DIR, exist_ok=True)  # StaticFilesのmount時に存在している必要があるため、ここで作成
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # アプリ起動時：テーブル作成 + 初期データ投入
+    # アプリ起動時：テーブル作成 + 初期データ投入 + 動画保存フォルダの準備
     create_db_and_tables()
+    os.makedirs(VIDEO_DIR, exist_ok=True)
     with Session(engine) as session:
         seed_all(session)
     yield
@@ -39,6 +47,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# アップロードした動画ファイルを http://localhost:8000/static/videos/... で配信する
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/")
@@ -59,6 +70,34 @@ def get_pas(pas_id: int, session: Session = Depends(get_session)):
     pas = session.get(Pas, pas_id)
     if not pas:
         raise HTTPException(status_code=404, detail="パが見つかりません")
+    return pas
+
+
+@app.post("/pas/{pas_id}/video", response_model=Pas)
+async def upload_pas_video(
+    pas_id: int,
+    file: UploadFile = File(...),
+    session: Session = Depends(get_session),
+):
+    pas = session.get(Pas, pas_id)
+    if not pas:
+        raise HTTPException(status_code=404, detail="パが見つかりません")
+
+    # 動画ファイルのみ許可する
+    if file.content_type is None or not file.content_type.startswith("video/"):
+        raise HTTPException(status_code=400, detail="動画ファイルを選択してください")
+
+    ext = os.path.splitext(file.filename or "")[1] or ".mp4"
+    filename = f"pas_{pas_id}_{uuid.uuid4().hex[:8]}{ext}"
+    filepath = os.path.join(VIDEO_DIR, filename)
+
+    with open(filepath, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    pas.sample_video_url = f"http://localhost:8000/static/videos/{filename}"
+    session.add(pas)
+    session.commit()
+    session.refresh(pas)
     return pas
 
 
